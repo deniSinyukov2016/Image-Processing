@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="157.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.digital.RootController">
+   <children>
+      <Label layoutX="25.0" layoutY="14.0" text="Введите степень" />
+      <Button fx:id="btnTrasform" layoutX="28.0" layoutY="76.0" mnemonicParsing="false" onAction="#onDegreeTransform" text="Преобразовать" />
+      <TextField fx:id="tfDegree" layoutX="47.0" layoutY="41.0" prefHeight="25.0" prefWidth="63.0" />
+   </children>
+</AnchorPane>

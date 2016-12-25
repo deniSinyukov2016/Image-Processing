@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.digital.RootController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#open" text="Открыть" />
+                  <MenuItem fx:id="miSave" disable="true" mnemonicParsing="false" onAction="#onSavePicture" text="Сохранить" />
+              <MenuItem mnemonicParsing="false" onAction="#onExit" text="Выход" />
+            </items>
+          </Menu>
+            <Menu fx:id="menuImage" disable="true" mnemonicParsing="false" text="Изображение">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#medianFilter" text="Медианный фильтр" />
+                  <MenuItem mnemonicParsing="false" onAction="#onThreshold" text="Пороговый фильтр" />
+                  <Menu mnemonicParsing="false" text="Морфологические фильтры">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#On_erode" text="Дилатация" />
+                        <MenuItem mnemonicParsing="false" onAction="#on_dilate" text="Эрозия" />
+                        <MenuItem mnemonicParsing="false" onAction="#on_open" text="Размыкание" />
+                        <MenuItem mnemonicParsing="false" onAction="#on_close" text="Замыкание" />
+                        <MenuItem mnemonicParsing="false" onAction="#on_outline" text="Контур изображения" />
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="miNegative" mnemonicParsing="false" onAction="#onNegative" text="Негатив" />
+                  <MenuItem fx:id="miDegree" mnemonicParsing="false" onAction="#onDegree" text="Степенное преобразовнаие" />
+                  <Menu mnemonicParsing="false" text="Гистограмма изображения">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#createHistogram_Alfa" text="По яркости" />
+                        <MenuItem mnemonicParsing="false" onAction="#createHistogram_Red" text="По красному" />
+                        <MenuItem mnemonicParsing="false" onAction="#createHistogram_Blue" text="По синему" />
+                        <MenuItem mnemonicParsing="false" onAction="#createHistogram_Green" text="По зеленому" />
+                        <MenuItem mnemonicParsing="false" onAction="#createHistogram_All" text="По всем" />
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#clearFilter" text="Сброс фильтра" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Справка">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onAbout" text="Обо мне" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <AnchorPane fx:id="downPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="840.0" visible="false" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="paneDownDegree" layoutX="263.0" layoutY="8.0" prefHeight="40.0" prefWidth="391.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="186.0">
+               <children>
+                  <TextField fx:id="tfDegree" layoutX="117.0" layoutY="13.0" prefHeight="25.0" prefWidth="52.0" />
+                  <Button fx:id="btnTransform" layoutX="176.0" layoutY="13.0" mnemonicParsing="false" onAction="#onTransform" prefHeight="25.0" prefWidth="106.0" text="Преобразовать" />
+                  <Label layoutX="14.0" layoutY="17.0" text="Введите данные" />
+                  <Button fx:id="btnOK" layoutX="288.0" layoutY="12.0" mnemonicParsing="false" onAction="#onOK" text="ОК" visible="false" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

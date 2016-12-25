@@ -1,0 +1,8 @@
+.background{
+    -fx-background: #436777;
+
+}
+.label:hover{
+    -fx-background-color: cornflowerblue;
+}
+
