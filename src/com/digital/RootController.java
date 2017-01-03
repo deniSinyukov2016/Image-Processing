@@ -527,8 +527,8 @@ public class RootController implements Initializable{
         hide_downPanel(false);
         erode_image =startImage;
         ErodeFilter dilation = new ErodeFilter(erode_image);
-        erode_image = dilation.erode();
-        Image newImage = Utils.bufferdToimageFX(erode_image);
+        //erode_image = dilation.erode();
+        Image newImage = Utils.bufferdToimageFX(dilation.erode());
         imageView.setImage(newImage);
         paneCenter.setCenter(imageView);
 
@@ -539,8 +539,8 @@ public class RootController implements Initializable{
         hide_downPanel(false);
         dilate_image = startImage;
         DilateFilter dilateFilter = new DilateFilter(dilate_image);
-        dilate_image = dilateFilter.dilate();
-        Image newImage = Utils.bufferdToimageFX(dilate_image);
+        //dilate_image = dilateFilter.dilate();
+        Image newImage = Utils.bufferdToimageFX(dilateFilter.dilate());
         imageView.setImage(newImage);
         paneCenter.setCenter(imageView);
     }
@@ -586,16 +586,17 @@ public class RootController implements Initializable{
         //Класс работы с диалогом выборки и сохранения
          fileChooser.setTitle("Save Document");
         // Заголовок диалога
-        FileChooser.ExtensionFilter extFilter =  new FileChooser.ExtensionFilter("Picture files (*.png)", "*.jpeg");
+        FileChooser.ExtensionFilter extFilter =  new FileChooser.ExtensionFilter("Picture files (*.jpeg)", "*.jpeg");
         //Расширение
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(null);
-        String path = file.getPath();
+        String path = null;
         //Указываем текущую сцену
         Image image = imageView.getImage();
         BufferedImage img = Utils.imageToBufferd(image);
          if (file != null) {
              try {
+                 path = file.getPath();
                  ImageIO.write(img, "png", new File(path));
              } catch (IOException e) {
                  e.printStackTrace();
