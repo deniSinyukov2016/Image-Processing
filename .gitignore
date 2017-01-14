@@ -4,4 +4,5 @@
 *.iml
 
 res/lib/*.zip
+res/lib/javacv-bin/
 out/

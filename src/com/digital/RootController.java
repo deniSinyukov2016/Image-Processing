@@ -25,8 +25,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.shape.Polygon;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -184,17 +187,22 @@ public class RootController implements Initializable{
                 //BufferedImage bufferedImage = Utils.imageToBufferd(image);
 
                 imageView = new ImageView(image);
+                //imageView.maxWidth(1366);
+                //imageView.maxWidth(740);
+
                 miSave.setDisable(false);
 
                 imageView.setFitWidth(image.getWidth());
                 imageView.setFitHeight(image.getHeight());
 
                 //Проверка : Если изображение больше (по высоте или ширине)сцены -> FullScreen
-                if ((image.getWidth() > main.getPrimaryStage().getWidth() ||
-                        (image.getHeight() > main.getPrimaryStage().getHeight()))) {
+                if ((image.getWidth() > main.getRootPane().getWidth() ||
+                        (image.getHeight() > main.getRootPane().getHeight()))) {
                     //Установка FullScreen
-                    main.getPrimaryStage().setFullScreen(true);
-
+                   // main.getPrimaryStage().setHeight(1268);
+                   imageView.setFitHeight(main.getRootPane().getHeight() - 100);
+                   imageView.setFitWidth(main.getRootPane().getWidth() - 100);
+                   // imageView.autosize();
                 }
 
                 paneCenter = new BorderPane();
@@ -256,7 +264,8 @@ public class RootController implements Initializable{
     //Действие при нажатии кнопки "Медианный фильтр"
     public void medianFilter(ActionEvent actionEvent) {
             hide_downPanel(false);
-            median_Image = startImage;
+           // median_Image = startImage;
+            median_Image = Utils.imageToBufferd(imageView.getImage());
             medianFilter = new MadianFilter(median_Image);
             medianFilter.addMedianFilter(median_Image);
             Image newImage = Utils.bufferdToimageFX(median_Image);
@@ -273,7 +282,8 @@ public class RootController implements Initializable{
     public void createHistogram_Alfa(ActionEvent actionEvent) {
         hide_downPanel(false);
 
-        histogram_Image = startImage;
+        //histogram_Image = startImage;
+        histogram_Image = Utils.imageToBufferd(imageView.getImage());
 
         histogramImage = new Histogram_Image(histogram_Image);
         histogramImage.createGistogram();
@@ -299,7 +309,8 @@ public class RootController implements Initializable{
 
         hide_downPanel(false);
 
-        dublicatImage = Utils.imageToBufferd(getImage());
+        //dublicatImage = Utils.imageToBufferd(getImage());
+        dublicatImage = Utils.imageToBufferd(imageView.getImage());
         histogramImage = new Histogram_Image(dublicatImage);
         histogramImage.createGistogram();
 
@@ -323,7 +334,7 @@ public class RootController implements Initializable{
 
         hide_downPanel(false);
 
-        dublicatImage = Utils.imageToBufferd(getImage());
+        dublicatImage = Utils.imageToBufferd(imageView.getImage());
         histogramImage = new Histogram_Image(dublicatImage);
         histogramImage.createGistogram();
 
@@ -347,7 +358,7 @@ public class RootController implements Initializable{
 
         hide_downPanel(false);
 
-        dublicatImage = Utils.imageToBufferd(getImage());
+        dublicatImage = Utils.imageToBufferd(imageView.getImage());
         histogramImage = new Histogram_Image(dublicatImage);
         histogramImage.createGistogram();
 
@@ -371,7 +382,7 @@ public class RootController implements Initializable{
 
         hide_downPanel(false);
 
-        dublicatImage = Utils.imageToBufferd(getImage());
+        dublicatImage = Utils.imageToBufferd(imageView.getImage());
         histogramImage = new Histogram_Image(dublicatImage);
         histogramImage.createGistogram();
 
@@ -403,7 +414,8 @@ public class RootController implements Initializable{
 //        Image newImage = Utils.bufferdToimageFX(dublImage);
 //        imageView.setImage(newImage);
 //        paneCenter.setCenter(imageView);
-        neg_Image = startImage;
+        //neg_Image = startImage;
+        neg_Image = Utils.imageToBufferd(imageView.getImage());
         negativeFilter = new Negative(neg_Image);
         negativeFilter.negative();
         Image newImage = Utils.bufferdToimageFX(neg_Image);
@@ -433,7 +445,8 @@ public class RootController implements Initializable{
 //            Image newImage = Utils.bufferdToimageFX(img);
 //            imageView.setImage(newImage);
 //            paneCenter.setCenter(imageView);
-        deegre_Image = startImage;
+       // deegre_Image = startImage;
+        deegre_Image = Utils.imageToBufferd(imageView.getImage());
         degreeTransform = new DegreeTransform(deegre_Image,gamma);
             degreeTransform.transform();
             Image newImage = Utils.bufferdToimageFX(deegre_Image);
@@ -475,7 +488,8 @@ public class RootController implements Initializable{
             @Override
             public void handle(ActionEvent event) {
                 int tmp = Integer.parseInt(tf.getText());
-                threshold_Image = startImage;
+                //threshold_Image = startImage;
+                threshold_Image = Utils.imageToBufferd(imageView.getImage());
                 ThresholdFilter thresholdFilter = new ThresholdFilter(threshold_Image,tmp);
                 thresholdFilter.activeFilter();
                 Image newImage = Utils.bufferdToimageFX(threshold_Image);
@@ -525,7 +539,8 @@ public class RootController implements Initializable{
     //Морфология - эрозия
     public void On_erode(ActionEvent actionEvent) {
         hide_downPanel(false);
-        erode_image =startImage;
+        //erode_image =startImage;
+        erode_image = Utils.imageToBufferd(imageView.getImage());
         ErodeFilter dilation = new ErodeFilter(erode_image);
         //erode_image = dilation.erode();
         Image newImage = Utils.bufferdToimageFX(dilation.erode());
@@ -537,7 +552,8 @@ public class RootController implements Initializable{
     //Морфология - дилатация
     public void on_dilate(ActionEvent actionEvent) {
         hide_downPanel(false);
-        dilate_image = startImage;
+       // dilate_image = startImage;
+        dilate_image = Utils.imageToBufferd(imageView.getImage());
         DilateFilter dilateFilter = new DilateFilter(dilate_image);
         //dilate_image = dilateFilter.dilate();
         Image newImage = Utils.bufferdToimageFX(dilateFilter.dilate());
@@ -548,7 +564,8 @@ public class RootController implements Initializable{
     //Морфология - размыкание
     public void on_open(ActionEvent actionEvent) {
         hide_downPanel(false);
-        open_image = startImage;
+       // open_image = startImage;
+        open_image = Utils.imageToBufferd(imageView.getImage());
         OpenFilter openFilter = new OpenFilter(open_image);
         open_image = openFilter.open();
         Image newImage = Utils.bufferdToimageFX(open_image);
@@ -559,7 +576,8 @@ public class RootController implements Initializable{
     //Морфология - замыкание
     public void on_close(ActionEvent actionEvent) {
         hide_downPanel(false);
-        close_image = startImage;
+        //close_image = startImage;
+        close_image = Utils.imageToBufferd(imageView.getImage());
         CloseFilter closeFilter = new CloseFilter(close_image);
         close_image = closeFilter.close();
         Image newImage = Utils.bufferdToimageFX(close_image);
@@ -569,7 +587,8 @@ public class RootController implements Initializable{
 
     public void on_outline(ActionEvent actionEvent) {
         hide_downPanel(false);
-        outline_image = startImage;
+        //outline_image = startImage;
+        outline_image = Utils.imageToBufferd(imageView.getImage());
         Outline outline = new Outline(outline_image);
         outline_image = outline.allocate();
         Image newImage = Utils.bufferdToimageFX(outline_image);
@@ -603,7 +622,9 @@ public class RootController implements Initializable{
              }
              //System.out.println(path);
          }
+
         }
+
 
 
 }

@@ -6,6 +6,8 @@ import org.bytedeco.javacpp.opencv_imgproc;
 
 import java.awt.image.BufferedImage;
 
+import static org.bytedeco.javacpp.opencv_core.*;
+
 /**
  * Created by Denis on 08.12.2016.
  */
@@ -38,11 +40,21 @@ public class Outline extends opencv_imgproc {
         * 1 - исх. изобр
         * 2 - преобр. изобр
         * 3 - кол-во итераций дилатации*/
-        cvMorphologyEx(image,image,null,mat,CV_MOP_GRADIENT,1);
+        IplImage gray = cvCreateImage( cvGetSize(image), IPL_DEPTH_8U, 1 );
+        IplImage  dst = cvCreateImage( cvGetSize(image), IPL_DEPTH_8U, 1 );
+        // преобразуем в градации серого
+        cvCvtColor(image, gray, CV_RGB2GRAY);
+
+        // получаем границы
+        cvCanny(gray, dst, 10, 100, 3);
+
+        opencv_core.IplImage i = cvCloneImage(image);
+        //cvCanny(image,i,10,100,3);
+        //cvMorphologyEx(image,i,null,mat,CV_MOP_GRADIENT,1);
         //обнуляет структурный элемент
         cvReleaseStructuringElement(mat);
         // Преобразование в BufferedImage
-        BufferedImage img = Utils.IplImageToBufferedImage(image);
+        BufferedImage img = Utils.IplImageToBufferedImage(dst);
         return img;
 
     }
